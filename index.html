@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML Course Materials — Download</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 {
+    font-size: 2rem; margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle { color: #94a3b8; margin-bottom: 2rem; font-size: 1.05rem; }
+  .file-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .file-card {
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 12px; padding: 1rem 1.25rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.2s;
+  }
+  .file-card:hover { border-color: #60a5fa; background: #1e293bcc; }
+  .file-info { display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0; }
+  .file-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .file-name { font-weight: 600; color: #f1f5f9; word-break: break-word; }
+  .file-meta { color: #64748b; font-size: 0.85rem; margin-top: 0.2rem; }
+  .download-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: #3b82f6; color: white; text-decoration: none;
+    padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600;
+    font-size: 0.9rem; flex-shrink: 0; transition: background 0.2s;
+  }
+  .download-btn:hover { background: #2563eb; }
+  .download-btn.alt { background: #475569; }
+  .download-btn.alt:hover { background: #334155; }
+  .buttons { display: flex; gap: 0.5rem; flex-shrink: 0; }
+  .footer {
+    text-align: center; color: #475569; margin-top: 3rem;
+    font-size: 0.85rem;
+  }
+  @media (max-width: 600px) {
+    body { padding: 1rem; }
+    .file-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .buttons { width: 100%; }
+    .download-btn { flex: 1; text-align: center; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📚 ML Course Materials</h1>
+  <p class="subtitle">Python Machine Learning — Lecture Notes &amp; Homework Downloads</p>
+  <div class="file-list" id="fileList">
+  </div>
+  <p class="footer">Click any button to download · Hosted on GitHub Pages</p>
+</div>
+
+<script>
+const files = [
+  // lect 01
+  { name: "ML course lecture 01 materials", files: [
+    { fn: "ML course lecture 01 materials.zip" },
+    { fn: "ML course lecture 01 materials.7z" }
+  ]},
+  // lect 02
+  { name: "ML course lecture 02 materials", files: [
+    { fn: "ML course lecture 02 materials.zip" },
+    { fn: "ML course lecture 02 materials.7z" }
+  ]},
+  // lect 03-05
+  { name: "ML course lecture 03 materials", files: [{ fn: "ML course lecture 03 materials.zip" }] },
+  { name: "ML course lecture 04 materials", files: [{ fn: "ML course lecture 04 materials.zip" }] },
+  { name: "ML course lecture 05 material",  files: [{ fn: "ML course lecture 05 material.zip" }] },
+  { name: "ML course lecture 6 material",   files: [{ fn: "ML course lecture 6 material.zip" }] },
+  { name: "ML course lecture 7 materials",  files: [{ fn: "ML course lecture 7 materials.zip" }] },
+  { name: "ML course lecture 8 materials",  files: [{ fn: "ML course lecture 8 materials.zip" }] },
+  { name: "ML course lecture 09 materials", files: [{ fn: "ML course lecture 09 materials.zip" }] },
+  { name: "ML course lecture 10 materials", files: [{ fn: "ML course lecture 10 materials.zip" }] },
+  { name: "ML course lecture 11 materials", files: [{ fn: "ML course lecture 11 materials.zip" }] },
+  { name: "ML course lecture 12 materials", files: [{ fn: "ML course lecture 12 materials.zip" }] },
+  { name: "ML course lecture 13 materials", files: [{ fn: "ML course lecture 13 materials.zip" }] },
+  { name: "ML course lecture 14 materials", files: [{ fn: "ML course lecture 14 materials.zip" }] },
+  { name: "ML course lecture 15 material",  files: [{ fn: "ML course lecture 15 material.zip" }] },
+];
+
+const container = document.getElementById('fileList');
+files.forEach(lect => {
+  const card = document.createElement('div');
+  card.className = 'file-card';
+  const ext = lect.files[0].fn.endsWith('.7z') ? '7z' : 'zip';
+  const btns = lect.files.map(f => {
+    const isZip = f.fn.endsWith('.zip');
+    return `<a class="download-btn${isZip ? '' : ' alt'}" href="${encodeURI(f.fn)}" download>⬇ ${isZip ? 'ZIP' : '7z'}</a>`;
+  }).join('');
+  card.innerHTML = `
+    <div class="file-info">
+      <span class="file-icon">📦</span>
+      <div>
+        <div class="file-name">${lect.name}</div>
+        <div class="file-meta">Download in ${lect.files.map(f => f.fn.slice(-3).toUpperCase()).join(' or ')} format</div>
+      </div>
+    </div>
+    <div class="buttons">${btns}</div>`;
+  container.appendChild(card);
+});
+</script>
+</body>
+</html>
